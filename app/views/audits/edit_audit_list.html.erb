@@ -1,21 +1,30 @@
 <style>
 	.response_row_yes{
-		background-color: green;
+		background-color: #86e8aa;
 	}
 	.response_row_no{
-		background-color: red;
+		background-color: #ea8a8a;
 	}
 	.response_row_na{
-		background-color: green;
+		background-color: #86e8aa;
 	}
 </style>
+
+<div class="headers">
+<div class="grid-x">
+  <div class="cell small-6"><h1>Edit audit submission</h1></div>
+  <div class="cell small-6 text-right"><%= link_to "SAVE AUDIT", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id), class: "button primary" %></div>
+</div>
+</div>
+
+
 <table>
 	<% @responses.each do |response| %>
 	
 	<% if response.status == "NO" %>
-		<tr style="background-color: red" class="response-row-<%= response.id %>">
+		<tr style="background-color: #ea8a8a" class="response-row-<%= response.id %>">
 	<% elsif response.status == "YES" || response.status == "NA" %>
-		<tr style="background-color: green" class="response-row-<%= response.id %>">
+		<tr style="background-color: #86e8aa" class="response-row-<%= response.id %>">
 	<% else %>
 		<tr class="response-row-<%= response.id %>">
 	<% end %>
@@ -39,9 +48,9 @@
 
 						  // CHANGE COLOUR
 						  if (response_status == "NO"){
-						    $('.response-row-<%= response.id %>').css("background-color", "red");
+						    $('.response-row-<%= response.id %>').css("background-color", "#ea8a8a");
 						  } else {
-						  	$('.response-row-<%= response.id %>').css("background-color", "green");
+						  	$('.response-row-<%= response.id %>').css("background-color", "#86e8aa");
 						  }
 						});
 					</script>
@@ -51,6 +60,5 @@
 	</tr>
 	<% end %>
 </table>
-
-<%= link_to "SAVE FORM", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id) %>
+<%= link_to "SAVE AUDIT", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id), class: "button primary" %>
 
