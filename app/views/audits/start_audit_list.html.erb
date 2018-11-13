@@ -1,0 +1,73 @@
+<style>
+	.response_row_yes{
+		background-color: #86e8aa;
+	}
+	.response_row_no{
+		background-color: #ea8a8a;
+	}
+	.response_row_na{
+		background-color: #86e8aa;
+	}
+</style>
+
+
+<div class="headers">
+<div class="grid-x">
+  <div class="cell small-6"><h1>Started the <%= @audit.title %></h1></div>
+  <div class="cell small-6 text-right"><%= link_to "SAVE AUDIT", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id), class: "button primary" %></div>
+</div>
+</div>
+
+<table>
+	<% @responses.each do |response| %>
+	
+	<% if response.status == "NO" %>
+		<tr style="background-color: #ea8a8a" class="response-row-<%= response.id %>">
+	<% elsif response.status == "YES" || response.status == "NA" %>
+		<tr style="background-color: #86e8aa" class="response-row-<%= response.id %>">
+	<% else %>
+		<tr class="response-row-<%= response.id %>">
+	<% end %>
+
+		<td valign="top"><%= response.question.title %> 
+			<% if response.question.tooltip.present? %>
+			<i class="fa fa-question-circle" data-tooltip tabindex="1" title="<%= response.question.tooltip %>"></i>
+			<% end %>
+		</td>
+		<td width="70%">
+			<%= form_tag audit_save_audit_path(params[:audit_id]), method: :post, remote: true do %>
+			<div class="grid-x grid-margin-x">
+				<div class="cell shrink">
+					<%= button_tag "YES", class: "button primary audit-btn #{response.id}_submission", value: "YES" %>
+					<%= button_tag "NO", class: "button secondary audit-btn #{response.id}_submission", value:"NO" %>
+					<%= button_tag "NA", class: "button warning audit-btn #{response.id}_submission", value: "NA" %>
+				</div>
+				<div class="cell auto">
+					<%= hidden_field_tag :get_response, nil, value: response.id %>
+					<%= text_field_tag :response_entry, nil, value: response.response_entry, placeholder: "Comments"  %>
+					<input type="hidden" class="<%= response.id %>_hiddenfield" name="response_status">
+				</div>
+			</div>
+			<script>
+				$('.<%= response.id %>_submission').click(function() {
+				  var response_status = $(this).val();
+				  var class_status = "response_row_" + response_status.toLowerCase();
+				  $('.<%= response.id %>_hiddenfield').val(response_status);
+
+				  // CHANGE COLOUR
+				  if (response_status == "NO"){
+				    $('.response-row-<%= response.id %>').css("background-color", "#ea8a8a");
+				  } else {
+				  	$('.response-row-<%= response.id %>').css("background-color", "#86e8aa");
+				  }
+				});
+			</script>
+			<% end %>
+		</td>
+				
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to "SAVE AUDIT", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id), class: "button primary" %>
+

@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<div class="headers">
+<div class="grid-x">
+  <div class="cell small-6"><h1>All Audits</h1></div>
+  <div class="cell small-6 text-right"><%= link_to 'Creat New Audit', new_audit_path, class: "button primary" %></div>
+</div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Department</th>
+      <th>Incompleted</th>
+      <th>Completed</th>
+      <th>Last Submission</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr>
+        <td style="padding-top: 40px; font-size: 1.2em; font-weight: bold;"><%= link_to audit.title, audit %></td>
+        
+        <td style="padding-top: 40px;"><%= audit.department %></td>
+        <td style="padding-top: 40px;"><%= audit.audit_submissions.where(completed: false).count %></td>
+        <td style="padding-top: 40px;"><%= audit.audit_submissions.where(completed: true).count %></td>
+        <td style="padding-top: 40px;">
+          <% if audit.audit_submissions.where(completed: true).last.present? %>
+            <%= audit.audit_submissions.last.created_at.strftime("%d %b %Y") %>
+          <% else %>
+            NONE YET SUBMITTED
+          <% end %>
+        </td>
+        <td style="padding-top: 40px;"><%= link_to 'START AUDIT', audit_start_audit_path(audit.id),class: "button expanded primary" %></td>
+        <td style="padding-top: 40px;"><%= link_to 'View Submitted Audits', audit_submitted_audits_path(audit.id),class: "button secondary expanded" %></td>
+      </tr>
+      <tr style="background-color: #3f3f3f; color: #b2b1bf; font-size: 0.9em;">
+        <td colspan="7">
+          <%= audit.description %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

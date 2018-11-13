@@ -1,0 +1,56 @@
+<style>
+	.response_row_yes{
+		background-color: green;
+	}
+	.response_row_no{
+		background-color: red;
+	}
+	.response_row_na{
+		background-color: green;
+	}
+</style>
+<table>
+	<% @responses.each do |response| %>
+	
+	<% if response.status == "NO" %>
+		<tr style="background-color: red" class="response-row-<%= response.id %>">
+	<% elsif response.status == "YES" || response.status == "NA" %>
+		<tr style="background-color: green" class="response-row-<%= response.id %>">
+	<% else %>
+		<tr class="response-row-<%= response.id %>">
+	<% end %>
+
+		<td><%= response.question.title %></td>
+
+			
+				<td>
+					<%= form_tag audit_save_audit_path(params[:audit_id]), method: :post, remote: true do %>
+					<%= hidden_field_tag :get_response, nil, value: response.id %>
+					<%= text_field_tag :response_entry, nil, value: response.response_entry  %>
+					<input type="hidden" class="<%= response.id %>_hiddenfield" name="response_status">
+					<%= submit_tag "YES", class: "button primary #{response.id}_submission", value: "YES" %>
+					<%= submit_tag "NO", class: "button primary #{response.id}_submission", value:"NO" %>
+					<%= submit_tag "NA", class: "button primary #{response.id}_submission", value: "NA" %>
+					<script>
+						$('.<%= response.id %>_submission').click(function() {
+						  var response_status = $(this).val();
+						  var class_status = "response_row_" + response_status.toLowerCase();
+						  $('.<%= response.id %>_hiddenfield').val(response_status);
+
+						  // CHANGE COLOUR
+						  if (response_status == "NO"){
+						    $('.response-row-<%= response.id %>').css("background-color", "red");
+						  } else {
+						  	$('.response-row-<%= response.id %>').css("background-color", "green");
+						  }
+						});
+					</script>
+					<% end %>
+				</td>
+				
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to "SAVE FORM", audit_complete_audit_path(params[:audit_id], audit_submission: @responses.last.audit_submission_id) %>
+

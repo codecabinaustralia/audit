@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<div class="headers">
+<div class="grid-x">
+  <div class="cell small-6"><h1>Questions</h1></div>
+  <div class="cell small-6 text-right">
+    <%= link_to "View #{@questions.last.audit.title}", audit_path(params[:audit_id]), class: "button warning" %>
+    <%= link_to 'New Question', new_audit_question_path(params[:audit_id]), class: "button primary" %>
+
+  </div>
+</div>
+</div>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Tooltip</th>
+      <th>Audit</th>
+      <th>Order</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.title %></td>
+        <td><%= question.tooltip %></td>
+        <td><%= question.audit %></td>
+        <td><%= question.order %></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_audit_question_path(params[:audit_id]), class: "button primary" %>

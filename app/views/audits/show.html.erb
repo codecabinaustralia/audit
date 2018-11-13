@@ -1,0 +1,46 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<div class="grid-x">
+		<div class="cell small-12 medium-4 medium-offset-4">
+			<div class="headers">
+				<div class="grid-x">
+				  <div class="cell small-6"><h1>New Question</h1></div>
+				  <div class="cell small-6 text-right">
+				  	<%= link_to "START AUDIT", audit_start_audit_path(@audit), class: "button small" %>
+				  </div>
+				</div>
+				</div>
+				<div class="form-inner-container">
+					<p>
+					  <strong>Title:</strong>
+					  <%= @audit.title %>
+					</p>
+
+					<p>
+					  <strong>Description:</strong>
+					  <%= @audit.description %>
+					</p>
+
+					<p>
+					  <strong>Department:</strong>
+					  <%= @audit.department %>
+					</p>
+
+					<p>
+					  <strong>Created by:</strong>
+					  <%= @audit.user.first_name %> <%= @audit.user.last_name %>
+					</p>
+
+					<%= link_to 'Delete this audit', @audit, method: :delete, data: { confirm: 'Are you sure?' }, class: "button primary" %>
+					<%= link_to 'Edit this audit', edit_audit_path(@audit), class: "button secondary" %>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+

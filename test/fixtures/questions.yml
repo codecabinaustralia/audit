@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  tooltip: MyString
+  audit: one
+  order: 1
+  response_type: one
+
+two:
+  title: MyString
+  tooltip: MyString
+  audit: two
+  order: 1
+  response_type: two

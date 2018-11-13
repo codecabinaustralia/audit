@@ -1,0 +1,57 @@
+
+
+<div class="headers">
+<div class="grid-x">
+  <div class="cell small-6"><h1><%= @audit.title %> submissions</h1></div>
+  <div class="cell small-6 text-right"></div>
+</div>
+</div>
+
+<table>
+	<thead>
+		<th>Created by</th>
+		<th>Started on</th>
+		<th>Completed on</th>
+		<th>Final Result</th>
+		<th>DOWNLOAD PDF</th>
+	</thead>
+	<tbody>
+		<% @submitted_audits.each do |sa| %>
+		<% if sa.completed == true %>
+		<tr style="background-color: #86e8aa">
+		<% else %>
+		<tr style="background-color: #ea7e7e">
+		<% end %>
+			<td>
+				<%= sa.user.first_name %> <%= sa.user.last_name %>
+			</td>
+			<td>
+				<%= sa.updated_at.strftime("%d %b %Y at %I:%M%p") %>
+			</td>
+			<td>
+				<% if sa.completed == true %>
+		          <%= sa.updated_at.strftime("%d %b %Y at %I:%M%p") %>
+		        <% else %>
+		          <span class="label alert">Unfinished</span>
+		        <% end %>
+			</td>
+			<td>
+				<% if sa.completed == true %>
+		         <span class="label success"><%= number_to_percentage(sa.final_result, precision: 2) %></span>
+		       <% else %>
+		         <span class="label alert">Unfinished</span>
+		       <% end %>
+			</td>
+			<td>
+				<% if sa.completed == true %>
+				<%= link_to "DOWNLOAD RESULTS", audit_report_card_path(params[:audit_id], audit_submission: sa.id, format: "pdf"), class: "button primary expanded" %>
+				<% else %>
+				<%= link_to "FINISH AUDIT", audit_edit_audit_list_path(sa.audit.id, audit_submission_id: sa.id), class: "button alert expanded" %>
+				<% end %>
+				
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% %>

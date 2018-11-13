@@ -1,0 +1,80 @@
+@import 'settings';
+
+/* INPUTS */
+input[type="text"]{
+ height: 65px;
+}
+
+/* BUTTONS*/
+
+.audit-btn.button{
+height: 65px;
+}
+
+.button {
+	color: $white !important;
+	margin-bottom: 0 !important;
+}
+/* NAV */
+
+.app-nav{
+	background-color: $secondary-color;
+
+}
+
+.app-nav li{
+	padding: 10px 0;
+}
+
+.app-nav li a{
+	color: $white;
+}
+
+/* table */
+table{
+	font-size: 0.8em;
+}
+
+table i{
+	color: $primary-color;
+}
+
+/* HEADERS */
+.headers{
+	margin-top: 40px;
+	margin-bottom: 0 !important;
+	width: 100%;
+	background-color: $secondary-color !important;
+	padding:10px !important;
+	color: #fff !important;
+	
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.headers h1{
+	
+	color: #fff !important;
+	font-size: 1.7em !important;
+	margin-bottom: 0 !important;
+}
+
+/* BGs */
+body{
+	background-color: #e5e5e5 !important;
+}
+
+.form-inner-container{
+	background-color: $white;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	padding: 40px;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AuditSoftware</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+
+    
+    <div class="app-nav">
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell small-12">
+            <ul class="menu align-right">
+              <li><%= link_to "CREATE A NEW AUDIT", new_audit_path, class: "button primary" %></li>
+              <li><%= link_to "MY AUDIT LOGS", my_audit_log_path %>  </li>
+              <li><%= link_to "ALL AUDITS", audits_path %></li>
+              <% if user_signed_in? %>
+                <li>
+                <%= link_to('LOGOUT', destroy_user_session_path, method: :delete) %>        
+                </li>
+              <% else %>
+                <li>
+                <%= link_to('SIGN IN', new_user_session_path)  %>  
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-container" style="margin-top: 40px;">
+    <%= yield %>
+    </div>
+  </body>
+</html>
